@@ -1,0 +1,19 @@
+{
+  "name": "pdrag",
+  "version": "0.0.1",
+  "description": "",
+  "main": "PDrag.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tzjvon/pdrag.git"
+  },
+  "author": "tzjvon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tzjvon/pdrag/issues"
+  },
+  "homepage": "https://github.com/tzjvon/pdrag#readme"
+}
