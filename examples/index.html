@@ -6,24 +6,22 @@
 	<link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-	<div class="dust"></div>
-
-
 		<div class="dragItem">1</div>
 		<div class="dragItem">2</div>
 		<div class="dragItem">3</div>
 		<div class="dragItem">4</div>
-		<img class="dragItem" src="http://www.baidu.com/favicon.ico" alt="">
-
+		<img class="dragItem" src="./images/132.jpeg">
+		<div class="dragItem">5</div>
 		<div class="dragItem">6</div>
+		<img class="dragItem" src="./images/132.jpeg">
 		<div class="dragItem">7</div>
 		<div class="dragItem">8</div>
-		<div class="dragItem">9</div>
-		<img class="dragItem" src="http://www.baidu.com/favicon.ico" alt="">
 
 	<script src="../build/PDrag.js"></script>
 	<script>
-		var PD = new PDrag('.dragItem');
+		var PD = new PDrag('.dragItem', {
+			dragenterClass: 'active'
+		});
 	</script>
 
 

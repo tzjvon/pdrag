@@ -54,7 +54,7 @@
         }
     }
 
-    function PDrag(_calssName) {
+    function PDrag(_calssName, options) {
         if (typeof _calssName == 'string') {
             this.cl = _calssName
         }else {
@@ -67,6 +67,18 @@
         this.currDragElNextEl = null;   /* 拖动元素的下一个元素 */
         this.currDragElParent = null;  /* 拖动元素的父节点 */
         this.tEl = null;        /* 拖动到的目标元素 */
+
+        this.opts = {
+            dragenterClass: ''
+        }
+
+        if (options) {
+            for (var key in options) {
+                if (Object.prototype.hasOwnProperty.call(options, key)) {
+                    this.opts[key] = options[key];
+                }
+            }
+        }
 
         this._setting();
         this._init();
@@ -82,6 +94,10 @@
         })
     }
 
+    PDp._init = function () {
+        this.bindEvent();
+    }
+
     PDp.handleEvent = function (e) {
         var evt = e || window.event;
 
@@ -90,13 +106,13 @@
                 this._dragstart(evt);
                 break;
             case 'dragenter':
-
+                this._dragenter(evt);
                 break;
             case 'dragover':
                 evt.preventDefault();
                 break;
             case 'dragleave':
-
+                this._dragleave(evt);
                 break;
             case 'drop':
                 this._drop(evt);
@@ -110,11 +126,15 @@
         this.drags.forEach(function (el) {
 
             removeEvent(el, 'dragstart', self);
+            removeEvent(el, 'dragenter', self);
             removeEvent(el, 'dragover', self);
+            removeEvent(el, 'dragleave', self);
             removeEvent(el, 'drop', self);
 
             addEvent(el, 'dragstart', self);
+            addEvent(el, 'dragenter', self);
             addEvent(el, 'dragover', self);
+            addEvent(el, 'dragleave', self);
             addEvent(el, 'drop', self);
 
         });
@@ -123,6 +143,9 @@
     PDp._drop = function (e) {
         this.moveCurrDragEl(e);
         this.moveTEl(e);
+
+        var target = e.target;
+        removeClass(target, this.opts.dragenterClass)
     }
 
     PDp._dragstart = function (e) {
@@ -135,8 +158,16 @@
         this.currDragElParent = this.currDragEl.parentElement;
     }
 
-    PDp._init = function () {
-        this.bindEvent();
+    PDp._dragenter = function (e) {
+        var target = e.target;
+        if (this.currDragEl == target) { return; }
+        addClass(target, this.opts.dragenterClass);
+    }
+
+    PDp._dragleave = function (e) {
+        var target = e.target;
+        if (this.currDragEl == target) { return; }
+        removeClass(target, this.opts.dragenterClass)
     }
 
     PDp.moveCurrDragEl = function (e) {
